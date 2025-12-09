@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 84% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 72% 51%;
+
+    --radius: 0.75rem;
+
+    --gradient-hero: linear-gradient(135deg, hsl(0 72% 51%) 0%, hsl(0 84% 60%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    
+    --shadow-glow: 0 0 30px hsla(0 72% 51% / 0.3);
+    --shadow-card: 0 4px 6px -1px hsla(0 0% 0% / 0.1), 0 2px 4px -1px hsla(0 0% 0% / 0.06);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 84% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 72% 51%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(0 72% 51%) 0%, hsl(0 84% 60%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 12%) 0%, hsl(0 0% 10%) 100%);
+    
+    --shadow-glow: 0 0 40px hsla(0 72% 51% / 0.4);
+    --shadow-card: 0 10px 15px -3px hsla(0 0% 0% / 0.3), 0 4px 6px -2px hsla(0 0% 0% / 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    /* Important: The ZoomHero component sets the background to black, but this ensures a fallback */
+    @apply bg-background text-foreground; 
+  }
+}
+
+
+/* 🚀 GSAP ZOOM HERO KEYFRAMES */
+/* These are necessary for the scroll-arrow bounce animation to work */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        /* Rotate is important because the original arrow is a rotated square */
+        transform: translateY(0) rotate(45deg); 
+    }
+    40% {
+        transform: translateY(15px) rotate(45deg);
+    }
+    60% {
+        transform: translateY(8px) rotate(45deg);
+    }
+}
+
+@layer utilities {
+    /* Custom utility to add padding equal to one screen height */
+    .pt-screen-offset {
+        padding-top: 100vh;
+    }
+}
