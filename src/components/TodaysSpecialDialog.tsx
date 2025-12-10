@@ -7,6 +7,23 @@ import { Badge } from "@/components/ui/badge";
 import { Sparkles, Clock, Plus } from "lucide-react";
 import { toast } from "sonner";
 
+const getImageUrl = (name: string | null) => {
+  if (!name) return "/placeholder.svg";
+
+  const lower = name.toLowerCase();
+
+  if (lower.includes("chole")) return "/foods/chole bhature.webp";
+  if (lower.includes("cold") && lower.includes("coffee")) return "/foods/cold coffee.jpg";
+  if (lower.includes("coffee")) return "/foods/coffee2.avif";
+  if (lower.includes("fries")) return "/foods/french fries.jpg";
+  if (lower.includes("dosa")) return "/foods/masala dosa.jpg";
+  if (lower.includes("paneer")) return "/foods/paneer tikka.jpg";
+  if (lower.includes("samosa")) return "/foods/samosa.jpg";
+  if (lower.includes("burger")) return "/foods/veg burger.jpg";
+
+  return "/placeholder.svg";
+};
+
 interface MenuItem {
   id: string;
   name: string;
@@ -79,10 +96,11 @@ export const TodaysSpecialDialog = ({ open, onOpenChange, onAddToCart }: TodaysS
 
                   {/* ✅ FIXED, STABLE AI IMAGE */}
                   <img
-                    src={`https://lexica.qatala.com/get?q=${encodeURIComponent(item.name)}+food`}
-                    alt={item.name}
-                    className="w-full h-40 object-cover"
-                  />
+  src={getImageUrl(item.name)}
+  alt={item.name}
+  className="w-full h-40 object-cover rounded-t-xl"
+/>
+
 
                   <Badge className="absolute top-2 right-2 bg-special text-special-foreground">
                     Special

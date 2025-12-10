@@ -39,11 +39,19 @@ import { useNotification } from "../contexts/NotificationContext";
 // Utility function to simulate image placeholder
 const getImageUrl = (name: string | null) => {
   if (!name) return "https://via.placeholder.com/150x100?text=Food+Item";
-  // A simple way to get different placeholders based on the item name
-  const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const colors = ['a1887f', '4db6ac', '7986cb', 'ffb74d'];
-  const color = colors[hash % colors.length];
-  return `https://via.placeholder.com/150x100/${color}/FFFFFF?text=${name.split(' ')[0]}`;
+
+  const lower = name.toLowerCase();
+
+  if (lower.includes("chole")) return "/foods/chole bhature.webp";
+  if (lower.includes("cold") && lower.includes("coffee")) return "/foods/cold coffee.jpg";
+  if (lower.includes("coffee")) return "/foods/coffee2.avif";
+  if (lower.includes("fries")) return "/foods/french fries.jpg";
+  if (lower.includes("dosa")) return "/foods/masala dosa.jpg";
+  if (lower.includes("paneer")) return "/foods/paneer tikka.jpg";
+  if (lower.includes("samosa")) return "/foods/samosa.jpg";
+  if (lower.includes("burger")) return "/foods/veg burger.jpg";
+
+  return "https://via.placeholder.com/150x100?text=Food+Item";
 };
 
 
@@ -319,10 +327,11 @@ const StudentDashboard: React.FC = () => {
     <Card className="flex flex-col bg-gray-800 text-white border-gray-700 shadow-lg dark:bg-gray-800">
       <div className="relative h-24 overflow-hidden rounded-t-lg">
         <img
-          src={item.image_url || getImageUrl(item.name)}
+          src={getImageUrl(item.name)}
           alt={item.name}
           className="w-full h-full object-cover"
         />
+
         <Badge className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-0.5 font-bold">
           {item.category.toUpperCase()}
         </Badge>
@@ -358,12 +367,13 @@ const StudentDashboard: React.FC = () => {
   // --------------------------------------------------
 
   return (
-    <div className="min-h-screen bg-background dark:bg-black text-foreground dark:text-gray-100">
+  <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900 text-foreground dark:text-gray-100">
       <Navbar
         cartItemsCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
         showCart
         onCartClick={() => setIsCartOpen(true)}
       />
+
 
       <TodaysSpecialDialog open={isSpecialOpen} onOpenChange={setIsSpecialOpen} onAddToCart={addToCart} />
 
@@ -373,15 +383,18 @@ const StudentDashboard: React.FC = () => {
         {/* Menu heading + Today's Special button */}
         <div className="mb-12 flex justify-between items-center">
           <div>
-            <h1 className="text-4xl font-extrabold text-[#DC2829]">Menu</h1>
+<h1 className="text-4xl font-extrabold text-[#DC2829]">Menu</h1>
+ 
+
             <p className="text-muted-foreground">Browse and order your favorite items</p>
           </div>
           <Button
-            onClick={() => setIsSpecialOpen(true)}
-            className="w-45 h-15 rounded-full bg-[#DC2829] text-white text-md font-bold flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 text-center leading-tight p-2"
-          >
-            Today's Special
-          </Button>
+  onClick={() => setIsSpecialOpen(true)}
+  className="w-45 h-15 rounded-full bg-[#DC2829] text-white text-md font-bold flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 text-center leading-tight p-2"
+>
+  Today's Special
+</Button>
+
         </div>
 
         {/* Queue Display and AI Suggestions Section - Forced 50/50 split on medium screens */}
