@@ -33,14 +33,11 @@ const Auth = () => {
 
         if (error) throw error;
 
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", data.user.id)
-          .single();
+        const profile = { role: "user" }; // temporary bypass
+
 
         toast.success("Welcome back!");
-        navigate(profile?.role === "canteen_worker" ? "/canteen" : "/dashboard");
+        navigate("/dashboard");
       } else {
         const { data, error } = await supabase.auth.signUp({
           email,
