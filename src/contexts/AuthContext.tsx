@@ -49,17 +49,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const fetchUserRole = async (userId: string) => {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", userId)
-      .single();
-
-    if (data && !error) {
-      setUserRole(data.role);
-    }
-    setLoading(false);
-  };
+  // temporary bypass (hackathon fix)
+  setUserRole("user");
+  setLoading(false);
+};
 
   const signOut = async () => {
     await supabase.auth.signOut();
